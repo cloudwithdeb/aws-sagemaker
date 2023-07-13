@@ -10,7 +10,7 @@ on:
 env:
 
     # Define environment
-    ACTION: "setup"
+    ACTION: "apply"
     S3_VERSION: "Enabled"
     AWS_REGION: "us-east-2"
     S3_DATABASE_STORAGE: "custom-db"
@@ -30,8 +30,6 @@ jobs:
     SetupInfrastructure:
       if: github.ref == 'refs/heads/setup'
       runs-on: ubuntu-latest
-      environment:
-        name: setup
 
       steps:
 
