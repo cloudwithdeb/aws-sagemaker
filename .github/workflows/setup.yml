@@ -10,7 +10,7 @@ on:
 env:
 
     # Define environment
-    ACTION: "setup"
+    ACTION: "apply"
     S3_VERSION: "Enabled"
     AWS_REGION: "us-east-2"
     S3_DATABASE_STORAGE: "custom-db"
@@ -30,8 +30,6 @@ jobs:
     SetupInfrastructure:
       if: github.ref == 'refs/heads/setup'
       runs-on: ubuntu-latest
-      environment:
-        name: setup
 
       steps:
 
@@ -73,6 +71,7 @@ jobs:
         - id: "DeployS3"
           if: env.ACTION  == 'apply'
           name: Deploy s3 bucket to be used for backend
+          continue-on-error: true
           run: |
               echo "Start Creating s3 bucket: ${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}"
               aws s3api create-bucket \
@@ -87,6 +86,7 @@ jobs:
 
         - id: "DeployDynamoDbTable"
           if: env.ACTION == 'apply'
+          continue-on-error: true
           name: Deploy Dynamodb Table for state locking
           run: |
             echo "Start creating Dynamodb table ${{ env.TERRAFORM_BACKEND_STATE_FILE_LOCK_DYANAMODB_TABLE }}"
@@ -255,6 +255,7 @@ jobs:
 
       - id: "DeployS3"
         name: Deploy s3 bucket to be used for backend
+        continue-on-error: true
         run: |
             echo "Start Creating s3 bucket: ${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}"
             aws s3api create-bucket \
