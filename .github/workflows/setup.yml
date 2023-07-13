@@ -10,7 +10,7 @@ on:
 env:
 
     # Define environment
-    ACTION: "destroy"
+    ACTION: "setup"
     S3_VERSION: "Enabled"
     AWS_REGION: "us-east-2"
     S3_DATABASE_STORAGE: "custom-db"
@@ -76,7 +76,8 @@ jobs:
           run: |
               echo "Start Creating s3 bucket: ${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}"
               aws s3api create-bucket \
-              --bucket "${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}"
+              --bucket "${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}" \
+              --create-bucket-configuration LocationConstraint=${{ env.AWS_REGION }}
             
               # Enabling s3 version
               aws s3api put-bucket-versioning \
@@ -257,7 +258,8 @@ jobs:
         run: |
             echo "Start Creating s3 bucket: ${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}"
             aws s3api create-bucket \
-            --bucket "${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}"
+            --bucket "${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}" \
+            --create-bucket-configuration LocationConstraint=${{ env.AWS_REGION }}
             
             # Enabling s3 version
             aws s3api put-bucket-versioning \
