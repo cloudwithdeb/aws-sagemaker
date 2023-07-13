@@ -75,7 +75,7 @@ jobs:
               echo "Start Creating s3 bucket: ${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}"
               aws s3api create-bucket \
               --bucket "${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}" \
-              --create-bucket-configuration LocationConstraint=${{ env.AWS_REGION }}
+              --create-bucket-configuration LocationConstraint=${{ env.AWS_REGION }} &> /dev/null
             
               # Enabling s3 version
               aws s3api put-bucket-versioning \
@@ -257,7 +257,7 @@ jobs:
             echo "Start Creating s3 bucket: ${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}"
             aws s3api create-bucket \
             --bucket "${{ env.TERRAFORM_BACKEND_S3_BUCKET_NAME }}-${{ env.AWS_REGION }}-${{ secrets.YOUR_AWS_ACCOUNT_ID}}" \
-            --create-bucket-configuration LocationConstraint=${{ env.AWS_REGION }}
+            --create-bucket-configuration LocationConstraint=${{ env.AWS_REGION }} &> /dev/null
             
             # Enabling s3 version
             aws s3api put-bucket-versioning \
