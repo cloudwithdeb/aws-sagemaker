@@ -5,3 +5,4 @@ setup/terraform.tfstate.*
 setup/.terraform
 setup/terraform/.ipynb_checkpoints
 setup/terraform1/.ipynb_checkpoints
+users/bright/notebooks/.ipynb_checkpoints
